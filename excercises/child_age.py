@@ -3,14 +3,15 @@
 if __name__ == "__main__":
     possible = []
     product = 36
-    for i in range(1, product+1):
+
+    for i in range(1, product+1): # 找到满足乘积条件的所有元组
         for j in range(i, product+1):
             for k in range(j, product+1):
                 if i * j * k == product:
                     possible.append((i, j, k))
 
     res = []
-    for i, tup in enumerate(possible):
+    for i, tup in enumerate(possible): # 找到和不唯一的元组
         sum = tup[0] + tup[1] + tup[2]
         for j in range(i+1, len(possible)):
             if sum == possible[j][0] + possible[j][1] + possible[j][2]:
