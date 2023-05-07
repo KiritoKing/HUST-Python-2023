@@ -1,9 +1,5 @@
 {
   "[python]": {
-    "diffEditor.ignoreTrimWhitespace": false,
-    "gitlens.codeLens.symbolScopes": [
-      "!Module"
-    ],
     "editor.indentSize": 4
   }
 }

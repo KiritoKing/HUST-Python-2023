@@ -53,23 +53,6 @@ class FileList(QWidget):
         self.updateList(data)
         self.layout.addSpacing(10)
 
-        self.initControls()
-
     def updateList(self, data):
         listModel = ListModel(data)
         self.list.setModel(listModel)
-
-    def initControls(self):
-        control = QHBoxLayout()
-        control.setContentsMargins(0, 5, 0, 10)
-        control.setSpacing(0)
-        control.setAlignment(Qt.AlignCenter)
-
-        addBtn = PushButton('Add', None, FIF.ADD)
-        delBtn = PushButton('Delete', None, FIF.DELETE)
-
-        control.addWidget(addBtn)
-        control.addSpacing(10)
-        control.addWidget(delBtn)
-        self.layout.addLayout(control)
-        # self.list.clicked.connect(None)

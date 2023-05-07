@@ -7,7 +7,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from os import path
 import subprocess
-from ..components.main_header import MainHeader
 from ..components.status_bar import StatusBar
 from ..components.title_bar import CustomTitleBar
 from ..components.file_list import FileList
