@@ -8,7 +8,7 @@ from app.view.main_window import MainWindow
 
 # enable dpi scale
 QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
 
 QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 

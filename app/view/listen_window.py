@@ -22,6 +22,7 @@ class ListenWindow(QDialog):
         self.cur_dir = '/'
 
         self.setModal(False)
+        self.setWindowModality(Qt.NonModal)
         self.resize(500, 300)
         self.setMinimumSize(500, 300)
         self.setWindowTitle(f'PyQt LAN Listener - {host}:{port}')
@@ -77,8 +78,8 @@ class ListenWindow(QDialog):
     def createSuccessInfoBar(self):
         # convenient class mothod
         InfoBar.success(
-            title='成功',
-            content="成功从远程服务器刷新文件列表",
+            title='',
+            content="Refreshed!",
             orient=Qt.Horizontal,
             isClosable=True,
             position=InfoBarPosition.TOP_LEFT,
