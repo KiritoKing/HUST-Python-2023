@@ -1,1 +1,6 @@
-tempCodeRunnerFile.py
+tempCodeRunnerFile.*
+*.pyc
+app/download
+
+downloaded
+shared
