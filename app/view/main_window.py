@@ -1,15 +1,15 @@
-from PyQt5.QtWidgets import QVBoxLayout
-from qfluentwidgets import PushButton
-from qframelesswindow import FramelessWindow, TitleBar
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
+from qfluentwidgets import PushButton, ToolButton, FluentIcon as FIF
+from qframelesswindow import FramelessWindow
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from os import path
 import subprocess
-from ..components.main_header import MainHeader
 from ..components.status_bar import StatusBar
 from ..components.title_bar import CustomTitleBar
 from ..components.file_list import FileList
 from ..utils.client import Client
+from .listen_window import ListenWindow
 
 
 class MainWindow(FramelessWindow):
@@ -21,7 +21,6 @@ class MainWindow(FramelessWindow):
         self.setTitleBar(CustomTitleBar(self))
         self.qvLayout = QVBoxLayout(self)
 
-        self.headHLayout = MainHeader()
         self.status = StatusBar()
         self.initLayout()
         self.initWindow()
@@ -35,11 +34,22 @@ class MainWindow(FramelessWindow):
         self.titleBar.setAttribute(Qt.WA_StyledBackground)
 
         self.qvLayout.setSpacing(0)
-        self.qvLayout.setContentsMargins(10, 40, 10, 10)
+        self.qvLayout.setContentsMargins(10, 50, 10, 10)
         self.qvLayout.setAlignment(Qt.AlignTop)
 
     def initWindow(self):
-        self.qvLayout.addWidget(self.headHLayout)
+        # head bar
+        self.head = QHBoxLayout()
+        self.head.setContentsMargins(10, 0, 10, 0)
+        addButton = PushButton(text='Add Listener', icon=FIF.ADD)
+        addButton.clicked.connect(self.newListener)
+        settingButton = ToolButton(FIF.SETTING)
+        self.head.addWidget(addButton)
+        self.head.setAlignment(addButton, Qt.AlignLeft)
+        self.head.addWidget(settingButton)
+        self.head.setAlignment(settingButton, Qt.AlignRight)
+        self.qvLayout.addLayout(self.head)
+        # status bar
         self.qvLayout.addWidget(self.status)
         self.file_list = FileList(open_handler=self.openHandler)
         self.qvLayout.addWidget(self.file_list)
@@ -68,3 +78,7 @@ class MainWindow(FramelessWindow):
                 print('open file: ', href)
                 p = client.get_file(path.join(self.cur_dir, href))
                 subprocess.Popen(['start', p], shell=True)
+
+    def newListener(self):
+        lw = ListenWindow('127.0.0.1', 8888, self)
+        lw.exec_()

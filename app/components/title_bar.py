@@ -24,7 +24,7 @@ class CustomTitleBar(TitleBar):
         self.window().windowIconChanged.connect(self.setIcon)
 
         # add title label
-        self.titleLabel = TextLabel(self, size=10)
+        self.titleLabel = TextLabel(parent=self, size=10)
         self.hBoxLayout.insertSpacing(2, 10)
         self.hBoxLayout.insertWidget(3, self.titleLabel, 0, Qt.AlignLeft | Qt.AlignVCenter)
         self.titleLabel.setObjectName('titleLabel')
