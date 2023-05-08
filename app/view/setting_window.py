@@ -10,6 +10,7 @@ from ..components.text_label import TextLabel
 from ..components.title_bar import CustomTitleBar
 from ..utils.client import Client
 from .setting_interface import SettingInterface
+from ..common.get_resource import get_resource
 
 
 class SettingWindow(FramelessDialog):
@@ -24,7 +25,7 @@ class SettingWindow(FramelessDialog):
         self.setMinimumSize(500, 400)
         self.setTitleBar(CustomTitleBar(self))
         self.setWindowTitle(f'Settings')
-        self.setWindowIcon(QIcon('app/resources/settings.png'))
+        self.setWindowIcon(QIcon(get_resource('icon.png')))
 
         self.initUi()
 
@@ -35,6 +36,9 @@ class SettingWindow(FramelessDialog):
         self.hBoxLayout.setContentsMargins(10, 50, 10, 10)
         self.hBoxLayout.addWidget(self.settingInterface)
         self.titleBar.raise_()
-        theme = 'light'
-        with open(f'app/resources/qss/{theme}/demo.qss', encoding='utf-8') as f:
-            self.setStyleSheet(f.read())
+        # theme = 'light'
+        # try:
+        #     with open(get_resource(f'qss/{theme}/demo.qss'), encoding='utf-8') as f:
+        #         self.setStyleSheet(f.read())
+        # except:
+        #     print("QSS file not found!")

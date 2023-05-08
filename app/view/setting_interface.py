@@ -15,6 +15,7 @@ from ..components.edit_setting_card import EditSettingCard
 import os
 from ..common.config import cfg
 import shutil
+from ..common.get_resource import get_resource
 
 
 class SettingInterface(ScrollArea):
@@ -44,7 +45,7 @@ class SettingInterface(ScrollArea):
         self.scrollWidget.setObjectName('scrollWidget')
         theme = 'light'
         try:
-            with open(f'app/resources/qss/{theme}/setting_interface.qss', encoding='utf-8') as f:
+            with open(get_resource('style.qss'), encoding='utf-8') as f:
                 self.setStyleSheet(f.read())
         except:
             print("QSS file not found!")

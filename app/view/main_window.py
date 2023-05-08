@@ -9,6 +9,7 @@ from .listen_window import ListenWindow
 from ..utils.server import Server
 from .setting_window import SettingWindow
 from ..common.config import Config as cfg
+from ..common.get_resource import get_resource
 
 
 class MainWindow(FramelessWindow):
@@ -42,7 +43,7 @@ class MainWindow(FramelessWindow):
         self.resize(500, 400)
         self.setMinimumSize(500, 400)
         self.setWindowTitle('PyQt LAN File Share')
-        self.setWindowIcon(QIcon('app/resources/icon.png'))
+        self.setWindowIcon(QIcon(get_resource('icon.png')))
         self.titleBar.setAttribute(Qt.WA_StyledBackground)
 
         self.qvLayout.setSpacing(0)
