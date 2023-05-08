@@ -1,9 +1,0 @@
-{
-    "Common": {
-        "Port": 8888
-    },
-    "QFluentWidgets": {
-        "ThemeColor": "#ff009faa",
-        "ThemeMode": "Auto"
-    }
-}
