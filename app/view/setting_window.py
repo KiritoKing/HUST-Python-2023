@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QVBoxLayout, QWidget, QHBoxLayout, QDialog
 from qfluentwidgets import InfoBar, InfoBarPosition, ToolButton, FluentIcon as FIF, LineEdit, LineEditButton
 from qframelesswindow import FramelessDialog
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from os import path
 import subprocess
@@ -13,6 +13,8 @@ from .setting_interface import SettingInterface
 
 
 class SettingWindow(FramelessDialog):
+    portChanged = pyqtSignal(int)
+
     def __init__(self, parent: QWidget = None) -> None:
         super().__init__(parent)
 
@@ -29,6 +31,7 @@ class SettingWindow(FramelessDialog):
     def initUi(self):
         self.hBoxLayout = QHBoxLayout(self)
         self.settingInterface = SettingInterface(self)
+        self.settingInterface.portChanged.connect(self.portChanged)
         self.hBoxLayout.setContentsMargins(10, 50, 10, 10)
         self.hBoxLayout.addWidget(self.settingInterface)
         self.titleBar.raise_()

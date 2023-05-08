@@ -88,7 +88,15 @@ class MainWindow(FramelessWindow):
         print('Server stopped!')
         return super().closeEvent(a0)
 
+    def portChangeHandler(self):
+        self.server.stop()
+        port = cfg.port.value
+        self.server = Server(port)
+        self.server.start()
+        self.server_panel.updatePort(port)
+
     def settingHandler(self):
         sw = SettingWindow(parent=self)
+        sw.portChanged.connect(self.portChangeHandler)
         sw.show()
         # self.settingWindow.show()

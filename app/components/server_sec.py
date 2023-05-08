@@ -124,3 +124,8 @@ class ServerSection(QWidget):
             duration=1000,
             parent=self
         )
+
+    def updatePort(self, port):
+        self.port = port
+        self.ip.setText(f"Exposed at: {self.host}:{self.port}")
+        self.loadDir()
