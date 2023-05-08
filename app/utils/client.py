@@ -5,7 +5,7 @@ import os
 
 class Client:
     def __init__(self, host, port):
-        self._conn = HTTPConnection(host, port)
+        self._conn = HTTPConnection(host, port, timeout=1)
         self._data = []
 
     def __enter__(self):
