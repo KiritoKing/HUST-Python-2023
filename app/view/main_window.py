@@ -49,7 +49,7 @@ class MainWindow(FramelessWindow):
     def initWindow(self):
         # head bar
         self.head = QHBoxLayout()
-        self.head.setContentsMargins(10, 0, 10, 0)
+        self.head.setContentsMargins(10, 0, 10, 20)
         addButton = PushButton(text='Add Listener', icon=FIF.ADD)
         addButton.clicked.connect(self.newListener)
         settingButton = ToolButton(FIF.SETTING)
@@ -67,12 +67,13 @@ class MainWindow(FramelessWindow):
         self.qvLayout.addWidget(self.server_panel)
 
     def newListener(self):
-        addr, ok = QInputDialog.getText(self, 'New Listener', 'Enter IP Address with port:')
-        if ok:
-            host, port = addr.split(':')
-            port = int(port)
-            lw = ListenWindow(host, port, self)
-            lw.exec_()
+        # addr, ok = QInputDialog.getText(self, 'New Listener', 'Enter IP Address with port:')
+        # if ok:
+        #     host, port = addr.split(':')
+        #     port = int(port)
+        lw = ListenWindow(parent=self)
+        lw.show()
+        # lw.exec_()
 
     def refresh(self):
         self.server_panel.loadDir()

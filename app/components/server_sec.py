@@ -20,6 +20,7 @@ class ServerSection(QWidget):
         self.port = port
 
         self.initStatus()
+        self.layout.addSpacing(5)
         self.initList()
         self.initControls()
 
