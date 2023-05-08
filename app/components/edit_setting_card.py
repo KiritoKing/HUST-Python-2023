@@ -30,7 +30,7 @@ class EditSettingCard(SettingCard):
         """
         super().__init__(icon, title, content, parent)
         self.edit = LineEdit(self)
-        self.edit.setText(str(value))
+        self.edit.setText(str(value.value))
         self.editBut = LineEditButton(FIF.ACCEPT, self)
         self.hBoxLayout.addWidget(self.edit, 0, Qt.AlignRight)
         self.hBoxLayout.addWidget(self.editBut, 0, Qt.AlignmentFlag.AlignTrailing)

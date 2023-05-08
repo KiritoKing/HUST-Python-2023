@@ -8,6 +8,7 @@ from ..components.server_sec import ServerSection
 from .listen_window import ListenWindow
 from ..utils.server import Server
 from .setting_window import SettingWindow
+from ..common.config import Config as cfg
 
 
 class MainWindow(FramelessWindow):
@@ -19,7 +20,7 @@ class MainWindow(FramelessWindow):
 
         self.setTitleBar(CustomTitleBar(self))
         self.qvLayout = QVBoxLayout(self)
-        self.server = Server(8888)
+        self.server = Server(cfg.port.value)
         self.server_running = False
 
         self.initLayout()
@@ -66,7 +67,7 @@ class MainWindow(FramelessWindow):
         self.head.addWidget(settingButton)
         self.qvLayout.addLayout(self.head)
         # server
-        self.server_panel = ServerSection(8888)
+        self.server_panel = ServerSection(cfg.port.value)
         self.qvLayout.addWidget(self.server_panel)
 
     def newListener(self):
