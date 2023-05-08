@@ -25,7 +25,7 @@ class SettingWindow(FramelessDialog):
         self.setMinimumSize(500, 400)
         self.setTitleBar(CustomTitleBar(self))
         self.setWindowTitle(f'Settings')
-        self.setWindowIcon(QIcon(get_resource('icon.png')))
+        self.setWindowIcon(QIcon(get_resource('settings.png')))
 
         self.initUi()
 

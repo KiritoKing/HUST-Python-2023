@@ -40,6 +40,14 @@ class SettingInterface(ScrollArea):
         self.downloadFolderCard.clicked.connect(self.handleClear)
         self.portCard = EditSettingCard(cfg.port, FIF.SYNC, "Port", "The port to broadcast in LAN", self.commonGroup)
         self.portCard.commit.connect(self.handleChangePort)
+        self.aboutGroup = SettingCardGroup("About", self.scrollWidget)
+        self.aboutCard = HyperlinkCard(
+            "https://github.com/KiritoKing/HUST-Python",
+            'Visit Github Repo',
+            FIF.CODE,
+            'Source',
+            'Visit my github repo to check the codes',
+            self.aboutGroup)
 
     def initQss(self):
         self.scrollWidget.setObjectName('scrollWidget')
@@ -54,9 +62,12 @@ class SettingInterface(ScrollArea):
         self.commonGroup.addSettingCard(self.downloadFolderCard)
         self.commonGroup.addSettingCard(self.portCard)
 
+        self.aboutGroup.addSettingCard(self.aboutCard)
+
         self.expandLayout.setSpacing(20)
         self.expandLayout.setContentsMargins(10, 10, 10, 10)
         self.expandLayout.addWidget(self.commonGroup)
+        self.expandLayout.addWidget(self.aboutGroup)
 
     def createSuccessInfoBar(self, text="Refreshed!"):
         # convenient class mothod
