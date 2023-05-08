@@ -10,7 +10,7 @@ from qfluentwidgets import (qconfig, QConfig, ConfigItem, OptionsConfigItem, Boo
 
 class Config(QConfig):
     """ Config of application """
-    port = ConfigItem("Common", "Port", 8889, RangeValidator(0, 65535))
+    port = ConfigItem("Common", "Port", 8888, RangeValidator(0, 65535))
 
 
 cfg = Config()

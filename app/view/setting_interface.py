@@ -83,13 +83,15 @@ class SettingInterface(ScrollArea):
     def handleClear(self):
         if os.path.exists(self.downloadPath) and os.path.isdir(self.downloadPath):
             shutil.rmtree(self.downloadPath)
+            print("Cleared!")
         self.createSuccessInfoBar("Cleared!")
 
     def handleChangePort(self):
         try:
             port = int(self.portCard.edit.text())
-            cfg.set(cfg.port, port)
-            self.portChanged.emit(int(self.portCard.edit.text()))
+            if (port != cfg.port.value):
+                cfg.set(cfg.port, port)
+                self.portChanged.emit(int(self.portCard.edit.text()))
             self.createSuccessInfoBar("Port changed!")
         except:
             self.createErrorInfoBar("Invalid port!")
