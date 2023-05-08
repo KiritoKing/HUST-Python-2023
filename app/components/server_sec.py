@@ -127,5 +127,6 @@ class ServerSection(QWidget):
 
     def updatePort(self, port):
         self.port = port
+        self.host = socket.gethostbyname(socket.gethostname())
         self.ip.setText(f"Exposed at: {self.host}:{self.port}")
         self.loadDir()

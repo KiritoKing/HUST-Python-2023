@@ -1,6 +1,6 @@
 {
     "Common": {
-        "Port": 8888
+        "Port": 8880
     },
     "QFluentWidgets": {
         "ThemeColor": "#ff009faa",

@@ -10,6 +10,7 @@ from ..utils.server import Server
 from .setting_window import SettingWindow
 from ..common.config import Config as cfg
 from ..common.get_resource import get_resource
+import asyncio
 
 
 class MainWindow(FramelessWindow):
@@ -21,14 +22,13 @@ class MainWindow(FramelessWindow):
 
         self.setTitleBar(CustomTitleBar(self))
         self.qvLayout = QVBoxLayout(self)
-        self.server = Server(cfg.port.value)
         self.server_running = False
 
         self.initLayout()
         self.initWindow()
         self.titleBar.raise_()
 
-        self.server.start()
+        asyncio.run(self.runServer())
 
     @property
     def server_running(self):
@@ -38,6 +38,19 @@ class MainWindow(FramelessWindow):
     def server_running(self, value):
         self._server_running = value
         self.server_changed.emit(value)
+
+    async def runServer(self):
+        if self.server_running:
+            self.server.stop()
+            self.server_running = False
+        port = cfg.port.value
+        self.server = Server(port)
+        await asyncio.to_thread(self.server.start)
+        self.server_running = True
+        self.server_panel.updatePort(port)
+
+    def runServerAsync(self):
+        asyncio.run(self.runServer())
 
     def initLayout(self):
         self.resize(500, 400)
@@ -81,8 +94,8 @@ class MainWindow(FramelessWindow):
         # lw.exec_()
 
     def refresh(self):
-        self.server_panel.loadDir()
-        self.server_panel.createSuccessInfoBar('Refreshed!')
+        self.runServerAsync()
+        self.server_panel.createSuccessInfoBar('Restarted!')
 
     def closeEvent(self, a0) -> None:
         self.server.stop()
@@ -90,11 +103,7 @@ class MainWindow(FramelessWindow):
         return super().closeEvent(a0)
 
     def portChangeHandler(self):
-        self.server.stop()
-        port = cfg.port.value
-        self.server = Server(port)
-        self.server.start()
-        self.server_panel.updatePort(port)
+        self.runServerAsync()
 
     def settingHandler(self):
         sw = SettingWindow(parent=self)

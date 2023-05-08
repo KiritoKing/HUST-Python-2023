@@ -1,9 +1,12 @@
 from http.client import HTTPConnection
 from bs4 import BeautifulSoup
 import os
+from PyQt5.QtCore import QThread, pyqtSignal
 
 
-class Client:
+class Client(QThread):
+    download_progress = pyqtSignal(int)
+
     def __init__(self, host, port):
         self._conn = HTTPConnection(host, port, timeout=1)
         self._data = []
@@ -23,7 +26,7 @@ class Client:
                 payload = resp.read().decode('utf-8')
             else:
                 payload = resp.read()
-        return resp.status, payload
+        return resp.status, payload, resp
 
     def _parse(self, html: str):
         soup = BeautifulSoup(html, 'lxml')
@@ -33,7 +36,7 @@ class Client:
                 self._data.append((name, href))
 
     def get_folder(self, path: str = "/"):
-        status, html = self._get_resp(path)
+        status, html, _ = self._get_resp(path)
         self._data.clear()
         if status == 200:
             self._parse(html)
@@ -42,16 +45,26 @@ class Client:
         return self._data
 
     def get_file(self, path):
-        status, buf = self._get_resp(path)
+        status, buf, resp = self._get_resp(path)
+        content_len, downloaded_len = int(resp.getheader('Content-Length')), 0
+
         if (status != 200):
             print('error')
             return ''
         save_dir = "downloaded"
         if not os.path.exists(save_dir):
             os.mkdir(save_dir)
+
         save_path = os.path.join(save_dir, path.split('/')[-1])
         with open(save_path, 'wb') as f:
-            f.write(buf)
+            while (True):
+                chunk = resp.read(1024)
+                if not chunk:
+                    break
+                f.write(chunk)
+                downloaded_len += len(chunk)
+                progress = int(downloaded_len / content_len * 100)
+                self.download_progress.emit(progress)
         return save_path
 
     def current_dir(self):

@@ -76,6 +76,7 @@ class ListenWindow(QDialog):
         with Client(self.host, self.port) as client:
             if (href == '' or href == '..' or href[-1] == '/'):
                 data = client.get_folder(self.cur_dir)
+                client.download_progress.connect(lambda p: print(p))
                 print(*data)
                 print(href)
                 self.file_list.updateList([("..", "..")] + data if self.cur_dir != '/' else data)
