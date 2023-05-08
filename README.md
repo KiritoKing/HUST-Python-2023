@@ -32,3 +32,17 @@ conda install --file requirements.txt
 
 # Run main.py in you Conda Prompt
 python ./main.py
+```
+### 使用指南
+
+<img src="./.github/screenshot.png" alt="项目截图" width="60%">
+
+- 左上角的 *Add Listener* 用于添加局域网中其他电脑的监听，得到他们的IP后输入即可获取他们共享的文件
+- 右上角的两个按钮分别是：*重启本地服务器*、*设置*，点一点就直到的
+- 中间的空白部分是本地 `./shared` 目录，用过在线文件服务器的都知道是怎么操作的，双击即可打开文件或目录
+- 下面的 *Add* 和 *Delete* 用于操作 `./shared` 目录，并不会对外部文件造成影响
+
+### 未完成的功能
+
+- [ ] 服务器操作异步化，不阻塞UI线程
+- [ ] 显示TCP传输进度
