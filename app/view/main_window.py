@@ -7,6 +7,7 @@ from ..components.title_bar import CustomTitleBar
 from ..components.server_sec import ServerSection
 from .listen_window import ListenWindow
 from ..utils.server import Server
+from .setting_window import SettingWindow
 
 
 class MainWindow(FramelessWindow):
@@ -23,6 +24,7 @@ class MainWindow(FramelessWindow):
 
         self.initLayout()
         self.initWindow()
+        self.titleBar.raise_()
 
         self.server.start()
 
@@ -39,7 +41,7 @@ class MainWindow(FramelessWindow):
         self.resize(500, 400)
         self.setMinimumSize(500, 400)
         self.setWindowTitle('PyQt LAN File Share')
-        self.setWindowIcon(QIcon('assets/icon.png'))
+        self.setWindowIcon(QIcon('app/resources/icon.png'))
         self.titleBar.setAttribute(Qt.WA_StyledBackground)
 
         self.qvLayout.setSpacing(0)
@@ -53,6 +55,7 @@ class MainWindow(FramelessWindow):
         addButton = PushButton(text='Add Listener', icon=FIF.ADD)
         addButton.clicked.connect(self.newListener)
         settingButton = ToolButton(FIF.SETTING)
+        settingButton.clicked.connect(self.settingHandler)
         syncButton = ToolButton(FIF.SYNC)
         syncButton.clicked.connect(self.refresh)
         self.head.addWidget(addButton)
@@ -83,3 +86,8 @@ class MainWindow(FramelessWindow):
         self.server.stop()
         print('Server stopped!')
         return super().closeEvent(a0)
+
+    def settingHandler(self):
+        sw = SettingWindow(parent=self)
+        sw.show()
+        # self.settingWindow.show()
