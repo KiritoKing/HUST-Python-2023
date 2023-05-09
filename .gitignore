@@ -1,6 +1,7 @@
 tempCodeRunnerFile.*
 *.pyc
 app/download
+app/config
 
 downloaded
 shared
