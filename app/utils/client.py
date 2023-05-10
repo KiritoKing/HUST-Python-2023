@@ -50,7 +50,7 @@ class Client:
         if not os.path.exists(save_dir):
             os.mkdir(save_dir)
         save_path = os.path.join(save_dir, path.split('/')[-1])
-        with open(save_path, 'wb') as f:
+        with open(save_path.encode('utf-8'), 'wb') as f:
             f.write(buf)
         return save_path
 
