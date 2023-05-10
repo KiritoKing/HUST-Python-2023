@@ -28,9 +28,8 @@
 git clone https://github.com/KiritoKing/HUST-Python.git
 
 # Create venv & Install dependencies
-conda create --name hust-pyqt5 python=3.11
-conda activate hust-pyqt5
-conda install --file requirements.txt
+conda env create -f freeze.yml python=3.11
+conda activate pyqt
 
 # Run main.py in you Conda Prompt
 python ./main.py
